@@ -10,15 +10,27 @@ import NotFound from "./pages/NotFound";
 const mockData = [
   {
     id: 1,
-    createdDate: new Date().getTime(),
+    createdDate: new Date("2024-09-07").getTime(),
     emotionId: 1,
     content: "오늘은 기분이 좋아서 기분이 좋은 일기를 쓰고 있어요.",
   },
   {
     id: 2,
-    createdDate: new Date().getTime(),
+    createdDate: new Date("2024-09-06").getTime(),
     emotionId: 2,
     content: "오늘은 기분이 별로여서 기분이 안 좋은 일기를 쓰고 있어요.",
+  },
+  {
+    id: 3,
+    createdDate: new Date("2024-08-05").getTime(),
+    emotionId: 3,
+    content: "오늘은 기분이 그저 그래서 기분이 그저 그런 일기를 쓰고 있어요.",
+  },
+  {
+    id: 4,
+    createdDate: new Date("2024-08-04").getTime(),
+    emotionId: 4,
+    content: "오늘은 기분이 복잡해서 기분이 복잡한 일기를 쓰고 있어요.",
   },
 ];
 
@@ -35,8 +47,8 @@ function reducer(state, action) {
   }
 }
 
-const DiaryStateContext = createContext();
-const DiaryDispatchContext = createContext();
+export const DiaryStateContext = createContext();
+export const DiaryDispatchContext = createContext();
 
 function App() {
   const [data, dispatch] = useReducer(reducer, mockData);
@@ -77,28 +89,6 @@ function App() {
 
   return (
     <>
-      <button
-        onClick={() => {
-          onCreate(new Date().getTime(), 1, "테스트용 일기입니다.");
-        }}
-      >
-        일기 추가 테스트
-      </button>
-      <button
-        onClick={() => {
-          onUpdate(1, new Date().getTime(), 2, "수정용 일기입니다.");
-        }}
-      >
-        일기 수정 테스트
-      </button>
-      <button
-        onClick={() => {
-          onDelete(1);
-        }}
-      >
-        일기 수정 테스트
-      </button>
-
       <DiaryStateContext.Provider value={data}>
         <DiaryDispatchContext.Provider value={{ onCreate, onUpdate, onDelete }}>
           <Routes>
