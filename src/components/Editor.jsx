@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import "./Editor.css";
@@ -23,13 +23,19 @@ const getStringedDate = (targetDate) => {
   return `${year}-${month}-${date}`;
 };
 
-const Editor = ({ onSubmit }) => {
+const Editor = ({ initData, onSubmit }) => {
   const [input, setInput] = useState({
     createdDate: new Date(),
     emotionId: 3,
     content: "",
   });
   const nav = useNavigate();
+
+  useEffect(() => {
+    if (initData) {
+      setInput({ ...initData, createdDate: new Date(initData.createdDate) });
+    }
+  }, [initData]);
 
   const onChangeInput = (e) => {
     let name = e.target.name;
